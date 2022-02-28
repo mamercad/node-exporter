@@ -10,12 +10,12 @@ concurrency:
 
 jobs:
 
-  ansible-ping:
+  fpm:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
 
-      - uses: actions/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.1
 
