@@ -1,0 +1,25 @@
+name: test
+
+on:
+  push:
+    branches: [test]
+
+concurrency:
+  group: ci-testing-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+
+  ansible-ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+
+      - name: fpm
+        run: |
+          gem install fpm
+          fpm --version
