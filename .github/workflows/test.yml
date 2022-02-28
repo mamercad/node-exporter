@@ -81,9 +81,8 @@ jobs:
           apt-ftparchive release . > Release
           # https://github.com/keybase/keybase-issues/issues/2798
           export GPG_TTY=$(tty)
-          gpg --armor --export "${EMAIL}" > KEY.gpg
-          gpg --default-key "${EMAIL}" -abs -o - Release > Release.gpg
-          gpg --default-key "${EMAIL}" --clearsign -o - Release > InRelease
+          # gpg --armor --export "${EMAIL}" > KEY.gpg
+          dpkg-sig -k "${EMAIL}" --sign builder aribas_1.64-6_amd64.deb
           echo "deb https://${GITHUB_USERNAME}.github.io/node-exporter ./" > ${GITHUB_USERNAME}-node-exporter.list
           cat "${GITHUB_USERNAME}-node-exporter.list"
         env:
