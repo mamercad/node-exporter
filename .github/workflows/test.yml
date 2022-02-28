@@ -23,3 +23,9 @@ jobs:
         run: |
           gem install fpm
           fpm --version
+
+      - name: download
+        run: |
+          wget -c https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
+          wget -c https://github.com/prometheus/node_exporter/releases/download/v1.3.1/sha256sums.txt
+          sha256sum --check --ignore-missing sha256sums.txt
