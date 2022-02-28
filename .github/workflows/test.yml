@@ -83,7 +83,7 @@ jobs:
           export GPG_TTY=$(tty)
           # gpg --armor --export "${EMAIL}" > KEY.gpg
           sudo apt update
-          sudo apt-get install --yes dpkg-sig
+          sudo apt install --yes dpkg-sig
           dpkg-sig -k "${EMAIL}" --sign builder aribas_1.64-6_amd64.deb
           echo "deb https://${GITHUB_USERNAME}.github.io/node-exporter ./" > ${GITHUB_USERNAME}-node-exporter.list
           cat "${GITHUB_USERNAME}-node-exporter.list"
