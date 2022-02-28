@@ -11,7 +11,8 @@ concurrency:
 jobs:
 
   package:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: ubuntu-bionic
     timeout-minutes: 5
     steps:
 
