@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
 
-  fpm:
+  package:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -58,8 +58,8 @@ jobs:
             --name node_exporter \
             --architecture amd64 \
             --version 1.3.1 \
-            LICENSE=/usr/local/bin/node_exporter-LICENSE \
-            NOTICE=/usr/local/bin/node_exporter-NOTICE \
+            LICENSE=/usr/share/doc/node-exporter/LICENSE \
+            NOTICE=/usr/share/doc/node-exporter/NOTICE \
             node_exporter=/usr/local/bin/node_exporter \
             node_exporter.service=/etc/systemd/system/node_exporter.service
           ls -l
