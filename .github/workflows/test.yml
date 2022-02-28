@@ -73,6 +73,11 @@ jobs:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           # passphrase: ${{ secrets.PASSPHRASE }}
 
+      - name: checkout
+        run: |
+          git fetch --all
+          git checkout ppa
+
       # https://assafmo.github.io/2019/05/02/ppa-repo-hosted-on-github.html
       - name: ppa
         run: |
@@ -91,14 +96,6 @@ jobs:
           cat "${GITHUB_REPOSITORY_OWNER}-node-exporter.list"
         env:
           EMAIL: mamercad+signing@gmail.com
-
-      - name: checkout
-        run: |
-          git fetch --all
-          git branch -av
-          git stash
-          git checkout ppa
-          git stash pop
 
       - name: commit
         uses: EndBug/add-and-commit@v8
