@@ -64,3 +64,9 @@ jobs:
             node_exporter.service=/etc/systemd/system/node_exporter.service
           ls -l
           dpkg --contents node-exporter_1.3.1_amd64.deb
+
+      - name: ppa
+        run: |
+          cd node_exporter-*.*-amd64
+          dpkg-scanpackages --multiversion . > Packages
+          gzip -k -f Packages
