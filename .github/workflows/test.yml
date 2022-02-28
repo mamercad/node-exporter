@@ -92,6 +92,10 @@ jobs:
         env:
           EMAIL: mamercad+signing@gmail.com
 
+      - name: checkout
+        run: |
+          git checkout ppa
+
       - name: commit
         uses: EndBug/add-and-commit@v8
         with:
