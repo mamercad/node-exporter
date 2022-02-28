@@ -96,7 +96,9 @@ jobs:
         run: |
           git fetch --all
           git branch -av
+          git stash
           git checkout ppa
+          git stash pop
 
       - name: commit
         uses: EndBug/add-and-commit@v8
