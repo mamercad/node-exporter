@@ -49,8 +49,7 @@ jobs:
       - name: package
         run: |
           tar xvfz node_exporter-*.*-amd64.tar.gz
-          cd node_exporter-*.*-amd64
-          cp ../node_exporter.service .
+          mv node_exporter-*.*-amd64/* .
           fpm \
             --input-type dir \
             --output-type deb \
@@ -75,7 +74,6 @@ jobs:
       # https://assafmo.github.io/2019/05/02/ppa-repo-hosted-on-github.html
       - name: ppa
         run: |
-          cd node_exporter-*.*-amd64
           dpkg-scanpackages --multiversion . > Packages
           gzip -k -f Packages
           apt-ftparchive release . > Release
@@ -91,3 +89,13 @@ jobs:
           cat "${GITHUB_REPOSITORY_OWNER}-node-exporter.list"
         env:
           EMAIL: mamercad+signing@gmail.com
+
+      - name: commit
+        uses: EndBug/add-and-commit@v8
+        with:
+          author_name: Mark Mercado
+          author_email: mamercad+signing@gmail.com
+          message: Adding node-exporter_1.3.1_amd64.deb
+          add: node-exporter_1.3.1_amd64.deb
+          new_branch: ppa
+          push: true
