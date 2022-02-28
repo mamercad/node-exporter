@@ -29,6 +29,9 @@ jobs:
           wget -c https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
           wget -c https://github.com/prometheus/node_exporter/releases/download/v1.3.1/sha256sums.txt
           sha256sum --check --ignore-missing sha256sums.txt
+
+      - name: package
+        run: |
           tar xvfz node_exporter-*.*-amd64.tar.gz
           cd node_exporter-*.*-amd64
           fpm \
@@ -38,6 +41,8 @@ jobs:
             --name node_exporter \
             --architecture amd64 \
             --version 1.3.1 \
+            node_exporter-LICENSE=/usr/local/bin/node_exporter-LICENSE \
+            node_exporter-NOTICE=/usr/local/bin/node_exporter-NOTICE \
             node_exporter=/usr/local/bin/node_exporter
           ls -l
-          dpkg -l node-exporter_1.3.1_amd64.deb
+          dpkg --contents node-exporter_1.3.1_amd64.deb
