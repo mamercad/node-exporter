@@ -30,10 +30,27 @@ jobs:
           wget -c https://github.com/prometheus/node_exporter/releases/download/v1.3.1/sha256sums.txt
           sha256sum --check --ignore-missing sha256sums.txt
 
+      - name: systemd
+        run: |
+          cat >node_exporter.service <<EOF
+          # https://github.com/prometheus/node_exporter/blob/master/examples/systemd/node_exporter.service
+          [Unit]
+          Description=Node Exporter
+
+          [Service]
+          User=node_exporter
+          EnvironmentFile=/etc/sysconfig/node_exporter
+          ExecStart=/usr/sbin/node_exporter $OPTIONS
+
+          [Install]
+          WantedBy=multi-user.target
+          EOF
+
       - name: package
         run: |
           tar xvfz node_exporter-*.*-amd64.tar.gz
           cd node_exporter-*.*-amd64
+          cp ../node_exporter.service .
           fpm \
             --input-type dir \
             --output-type deb \
@@ -41,8 +58,9 @@ jobs:
             --name node_exporter \
             --architecture amd64 \
             --version 1.3.1 \
-            node_exporter-LICENSE=/usr/local/bin/node_exporter-LICENSE \
-            node_exporter-NOTICE=/usr/local/bin/node_exporter-NOTICE \
-            node_exporter=/usr/local/bin/node_exporter
+            LICENSE=/usr/local/bin/node_exporter-LICENSE \
+            NOTICE=/usr/local/bin/node_exporter-NOTICE \
+            node_exporter=/usr/local/bin/node_exporter \
+            node_exporter.service=/etc/systemd/system/node_exporter.service
           ls -l
           dpkg --contents node-exporter_1.3.1_amd64.deb
