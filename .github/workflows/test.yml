@@ -31,6 +31,12 @@ jobs:
           sha256sum --check --ignore-missing sha256sums.txt
           tar xvfz node_exporter-*.*-amd64.tar.gz
           cd node_exporter-*.*-amd64
-          fpm -s dir -t deb --prefix /usr/local/bin -n node_exporter -a amd64 -v 1.3.1 \
+          fpm \
+            --input-type dir \
+            --output-type deb \
+            --prefix /usr/local/bin \
+            --name node_exporter \
+            --architecture amd64 \
+            --version 1.3.1 \
             node_exporter=/usr/local/bin/node_exporter
-          dpkg -l node_exporter_v1.3.1_amd64.deb
+          dpkg -l node-exporter_v1.3.1_amd64.deb
