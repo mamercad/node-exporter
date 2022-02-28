@@ -104,6 +104,6 @@ jobs:
           author_name: Mark Mercado
           author_email: mamercad+signing@gmail.com
           message: Adding node-exporter_1.3.1_amd64.deb
-          add: .
+          add: "*.deb Packages* Release *.list"
           new_branch: ppa
           push: true
