@@ -85,7 +85,9 @@ jobs:
           # sudo apt update
           sudo apt install --yes dpkg-sig
           dpkg-sig -k "${EMAIL}" --sign builder node-exporter_1.3.1_amd64.deb
-          echo "deb https://${GITHUB_USERNAME}.github.io/node-exporter ./" > ${GITHUB_USERNAME}-node-exporter.list
+          echo "deb https://${GITHUB_REPOSITORY_OWNER}.github.io/node-exporter ./" \
+            >"${GITHUB_REPOSITORY_OWNER}-node-exporter.list"
           ls -l
+          cat "${GITHUB_REPOSITORY_OWNER}-node-exporter.list"
         env:
           EMAIL: mamercad+signing@gmail.com
