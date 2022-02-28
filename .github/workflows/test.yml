@@ -48,6 +48,11 @@ jobs:
           WantedBy=multi-user.target
           EOF
 
+      - name: checkout
+        run: |
+          git fetch --all
+          git checkout ppa
+
       - name: package
         run: |
           tar xvfz node_exporter-*.*-amd64.tar.gz
@@ -72,11 +77,6 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           # passphrase: ${{ secrets.PASSPHRASE }}
-
-      - name: checkout
-        run: |
-          git fetch --all
-          git checkout ppa
 
       # https://assafmo.github.io/2019/05/02/ppa-repo-hosted-on-github.html
       - name: ppa
