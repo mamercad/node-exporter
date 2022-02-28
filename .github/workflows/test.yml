@@ -79,6 +79,8 @@ jobs:
           dpkg-scanpackages --multiversion . > Packages
           gzip -k -f Packages
           apt-ftparchive release . > Release
+          # https://github.com/keybase/keybase-issues/issues/2798
+          export GPG_TTY=$(tty)
           gpg --default-key "${EMAIL}" -abs -o - Release > Release.gpg
           gpg --default-key "${EMAIL}" --clearsign -o - Release > InRelease
           echo "deb https://${GITHUB_USERNAME}.github.io/node-exporter ./" > ${GITHUB_USERNAME}-node-exporter.list
