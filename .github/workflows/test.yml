@@ -94,6 +94,8 @@ jobs:
 
       - name: checkout
         run: |
+          git fetch --all
+          git branch -av
           git checkout ppa
 
       - name: commit
